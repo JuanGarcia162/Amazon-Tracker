@@ -1,21 +1,38 @@
 # 🛍️ Amazon Tracker
 
-Una aplicación móvil para rastrear precios de productos de Amazon US, diseñada específicamente para dispositivos Apple con **diseño nativo de iOS**.
+Una aplicación móvil completa para rastrear precios de productos de Amazon US, con **diseño nativo de iOS** y sincronización en la nube mediante Supabase.
 
-## ✨ Características
+## ✨ Características Principales
 
-- **Diseño Nativo iOS**: Interfaz completamente rediseñada con Cupertino widgets
-- **Navegación por Tabs**: CupertinoTabBar con 3 secciones (Todos, Ofertas, Alertas)
-- **Seguimiento de Precios**: Monitorea automáticamente los precios de productos de Amazon
-- **Gráficos Interactivos**: Visualiza historial con CupertinoSegmentedControl
-- **Alertas de Precio**: Establece un precio objetivo con diálogos nativos iOS
+### 🎯 Gestión de Productos
+- **Explorar Productos**: Descubre productos agregados por otros usuarios
+- **Favoritos con Colecciones**: Organiza tus productos en colecciones personalizadas
+- **Búsqueda Inteligente**: Busca productos por nombre en Explorar, Favoritos y Ofertas
+- **Agregar a Favoritos**: Guarda productos de otros usuarios con un solo tap
+
+### 📊 Seguimiento de Precios
+- **Gráficos Interactivos**: Visualiza historial de precios con múltiples temporalidades
+- **Precio Objetivo**: Establece alertas cuando el precio alcance tu meta
 - **Detección de Descuentos**: Identifica automáticamente productos con descuento
-- **Soporte para URLs Cortas**: Compatible con enlaces amazon.com y a.co
-- **Base de Datos Local**: Almacenamiento persistente con SQLite
-- **Tipografía SF Pro**: Fuentes nativas de iOS para una experiencia auténtica
-- **Pull to Refresh**: Actualización de precios con gesto nativo iOS
+- **Historial Completo**: Rastrea precios mínimos, máximos y promedio
+
+### 🔔 Notificaciones
+- **Push Notifications**: Recibe alertas cuando el precio baje (Firebase Cloud Messaging)
+- **Notificaciones In-App**: Alertas visuales dentro de la aplicación
+- **Alertas Personalizadas**: Configura precios objetivo individuales
+
+### ☁️ Sincronización y Colaboración
+- **Supabase Backend**: Base de datos compartida en tiempo real
+- **Realtime Updates**: Cambios sincronizados automáticamente entre dispositivos
+- **Productos Compartidos**: Explora y guarda productos de otros usuarios
+- **Edge Functions**: Actualización automática de precios con cron jobs
+
+### 🎨 Diseño y UX
+- **Diseño Nativo iOS**: Interfaz con Cupertino widgets
+- **5 Pestañas**: Explorar, Favoritos, Ofertas, Alertas, Ajustes
 - **Modo Claro/Oscuro**: Adaptación automática al tema del sistema
-- **Extracción Mejorada de Imágenes**: Múltiples métodos para obtener imágenes de alta calidad
+- **Pull to Refresh**: Actualización de precios con gesto nativo
+- **Animaciones Fluidas**: Transiciones suaves y naturales
 
 ## 🚀 Instalación
 
@@ -28,158 +45,306 @@ Una aplicación móvil para rastrear precios de productos de Amazon US, diseñad
 
 ### Pasos de Instalación
 
-1. Clona el repositorio:
+1. **Clona el repositorio**:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:JuanGarcia162/Amazon-Tracker.git
    cd amazon_tracker
    ```
 
-2. Instala las dependencias:
+2. **Instala las dependencias**:
    ```bash
    flutter pub get
    ```
 
-3. Instala pods de iOS (para dispositivos Apple):
+3. **Configura Supabase**:
+   - Crea un proyecto en [Supabase](https://supabase.com)
+   - Ejecuta el schema SQL ubicado en `supabase_schema.sql`
+   - Configura las credenciales en tu proyecto
+
+4. **Configura Firebase** (para notificaciones):
+   - Crea un proyecto en [Firebase Console](https://console.firebase.google.com)
+   - Descarga `google-services.json` (Android) y `GoogleService-Info.plist` (iOS)
+   - Colócalos en las carpetas correspondientes
+
+5. **Instala pods de iOS**:
    ```bash
    cd ios
    pod install
    cd ..
    ```
 
-5. Ejecuta la aplicación:
+6. **Ejecuta la aplicación**:
    ```bash
    flutter run
-   ```
-   
-
-   O para un dispositivo específico:
-   ```bash
-   flutter run -d <device-id>
    ```
 
 ## 📖 Cómo Usar
 
-### Agregar un Producto
+### 🔍 Explorar Productos
 
-1. Toca el botón **"+ Agregar"** en la pantalla principal
-2. Copia la URL del producto desde Amazon US
+1. Ve a la pestaña **"Explorar"**
+2. Navega por productos agregados por otros usuarios
+3. Usa la **barra de búsqueda** para encontrar productos específicos
+4. Toca el **corazón** en cualquier producto para agregarlo a tus favoritos
+5. Toca un producto para ver sus detalles completos
+
+### ⭐ Gestionar Favoritos
+
+1. Ve a la pestaña **"Favoritos"**
+2. Usa la **barra de búsqueda** para filtrar tus productos
+3. Organiza con **colecciones**:
+   - **Todos**: Ver todos tus favoritos
+   - **Sin categoría**: Productos sin asignar
+   - **Colecciones personalizadas**: Crea y gestiona tus propias colecciones
+4. Toca el botón **"+"** para agregar un nuevo producto desde Amazon
+
+### ➕ Agregar un Producto Nuevo
+
+1. Toca el botón **"+"** en Favoritos
+2. Copia la URL del producto desde Amazon US:
    - Formato largo: `https://www.amazon.com/dp/B08N5WRWNW`
    - Formato corto: `https://a.co/d/73v020J` ✅
 3. Pega la URL en el campo correspondiente
-4. (Opcional) Establece un precio objetivo para recibir alertas
+4. (Opcional) Establece un **precio objetivo** para recibir alertas
 5. Toca **"Agregar Producto"**
 
-### Monitorear Precios
+### 📊 Ver Detalles del Producto
 
-- **Vista "Todos"**: Muestra todos los productos rastreados
-- **Vista "Ofertas"**: Filtra productos con descuentos activos
-- **Vista "Alertas"**: Muestra productos que alcanzaron su precio objetivo
+**Desde Explorar:**
+1. Toca cualquier producto
+2. Usa el **botón de corazón** en la barra superior para agregar/quitar de favoritos
+3. Al agregarlo, aparece automáticamente la opción de **asignar a colección**
 
-### Ver Detalles del Producto
-
-1. Toca cualquier tarjeta de producto
-2. Visualiza el historial de precios en gráfico interactivo
-3. **Selecciona la temporalidad**: 3 días, 7 días, 20 días o Todo
-4. **Toca cualquier punto** del gráfico para ver precio y fecha exactos
+**Desde Favoritos:**
+1. Toca cualquier producto
+2. Visualiza el **historial de precios** en gráfico interactivo
+3. Selecciona la **temporalidad**: 3 días, 7 días, 20 días o Todo
+4. Toca cualquier punto del gráfico para ver precio y fecha exactos
 5. Visualiza estadísticas: Precio Actual, Mínimo, Máximo y Promedio
-6. Edita el precio objetivo (se muestra como línea naranja en el gráfico)
-7. Abre el producto directamente en Amazon
-8. Elimina el producto del rastreo
+6. Establece o edita el **precio objetivo**
+7. Asigna el producto a una **colección**
+8. Abre el producto directamente en **Amazon**
+9. Elimina el producto de tus favoritos
 
-**Nota**: El historial de precios se construye con datos reales de Amazon. Cada vez que actualices los precios, se agregará un nuevo punto al historial.
+### 🏷️ Ofertas y Alertas
 
-### Actualizar Precios
+- **Ofertas**: Filtra productos con descuentos activos (usa la búsqueda para encontrar ofertas específicas)
+- **Alertas**: Muestra productos que alcanzaron su precio objetivo
 
-- Desliza hacia abajo en la lista para actualizar manualmente
-- Toca el ícono de actualización en la barra superior
+### 🔄 Actualizar Precios
+
+- **Automático**: Los precios se actualizan cada 30 minutos mediante cron jobs
+- **Manual**: Desliza hacia abajo en cualquier lista para refrescar
+- **Realtime**: Los cambios se sincronizan automáticamente entre dispositivos
 
 ## 🏗️ Arquitectura
 
 ```
 lib/
-├── models/           # Modelos de datos (Product, PriceHistory)
-├── providers/        # Gestión de estado con Provider
-├── screens/          # Pantallas de la aplicación
-│   ├── home_screen.dart
-│   ├── add_product_screen.dart
-│   └── product_detail_screen.dart
-├── services/         # Servicios (Database, Amazon API)
-│   ├── database_service.dart
-│   └── amazon_service.dart
-├── widgets/          # Componentes reutilizables
-│   └── product_card.dart
-└── main.dart         # Punto de entrada
+├── config/                    # Configuración de la app
+│   └── app_colors.dart       # Paleta de colores y temas
+├── models/                    # Modelos de datos
+│   ├── product.dart          # Modelo de producto
+│   ├── price_history.dart    # Historial de precios
+│   └── favorite_collection.dart # Colecciones de favoritos
+├── providers/                 # Gestión de estado (Provider)
+│   └── product_provider.dart # Estado global de productos
+├── screens/                   # Pantallas principales
+│   ├── home_screen.dart      # Navegación con tabs
+│   ├── add_product_screen.dart # Agregar productos
+│   ├── product_detail_screen.dart # Detalles del producto
+│   ├── settings_screen.dart  # Configuración
+│   └── tabs/                 # Pestañas
+│       ├── explore_screen.dart    # Explorar productos
+│       ├── favorites_screen.dart  # Favoritos y colecciones
+│       ├── discounts_screen.dart  # Ofertas
+│       └── alerts_screen.dart     # Alertas de precio
+├── services/                  # Servicios externos
+│   ├── amazon_service.dart   # Scraping de Amazon
+│   ├── database_service.dart # SQLite local
+│   ├── supabase_database_service.dart # Supabase cloud
+│   └── notification_service.dart # Push notifications
+├── utils/                     # Utilidades
+│   └── format_utils.dart     # Formateo de precios y fechas
+├── widgets/                   # Componentes reutilizables
+│   ├── common/               # Widgets comunes
+│   │   ├── search_bar_widget.dart
+│   │   ├── gradient_button.dart
+│   │   └── empty_state_widget.dart
+│   ├── home/                 # Widgets del home
+│   │   └── tab_content_widget.dart
+│   ├── product_card.dart     # Tarjeta de producto
+│   ├── product_card_compact.dart
+│   └── interactive_price_chart.dart # Gráfico de precios
+└── main.dart                  # Punto de entrada
+
+supabase/
+├── functions/                 # Edge Functions
+│   ├── add-product/          # Agregar producto vía scraping
+│   ├── refresh-prices/       # Actualizar precios
+│   ├── refresh-all-prices/   # Actualizar todos los precios
+│   └── send-price-alert/     # Enviar notificaciones
+└── migrations/               # Migraciones de BD
+    ├── price_alerts.sql
+    └── fcm_tokens.sql
 ```
 
 ## 📦 Dependencias Principales
 
-- **provider**: Gestión de estado
-- **sqflite**: Base de datos local SQLite
-- **fl_chart**: Gráficos de historial de precios
-- **http**: Peticiones HTTP para obtener datos de productos
-- **url_launcher**: Abrir enlaces de Amazon
-- **shared_preferences**: Almacenamiento de preferencias
-- **intl**: Formateo de moneda y fechas
+### Core
+- **flutter**: SDK de Flutter (3.9.2+)
+- **cupertino_icons**: Iconos nativos de iOS
 
-## 🔧 Obtención de Datos de Amazon
+### Estado y Datos
+- **provider** (^6.1.1): Gestión de estado reactivo
+- **sqflite** (^2.3.0): Base de datos local SQLite
+- **supabase_flutter** (^2.5.0): Backend en la nube con realtime
+- **shared_preferences** (^2.2.2): Almacenamiento de preferencias
 
-Esta aplicación utiliza **scraping directo** de Amazon para obtener datos de productos:
+### UI y Visualización
+- **fl_chart** (^0.66.0): Gráficos interactivos de precios
+- **html** (^0.15.4): Parsing de HTML para scraping
 
-### ✨ Características:
+### Networking
+- **http** (^1.1.0): Peticiones HTTP
+- **url_launcher** (^6.2.2): Abrir URLs externas
 
-- **100% Gratuito** - Sin necesidad de APIs de pago
-- **Datos en tiempo real** - Precios actuales directamente de Amazon
-- **Extracción inteligente** - Múltiples métodos para obtener datos
-- **Historial de precios** - Detecta precios mínimos y máximos históricos
-- **Soporte de URLs** - Funciona con URLs completas y cortas
+### Notificaciones
+- **firebase_core** (^3.6.0): Core de Firebase
+- **firebase_messaging** (^15.1.3): Push notifications
+- **flutter_local_notifications** (^16.3.0): Notificaciones locales
 
-### 📊 Datos Extraídos:
+### Utilidades
+- **intl** (^0.19.0): Formateo de moneda y fechas
+- **path_provider** (^2.1.1): Rutas del sistema de archivos
 
-- ✅ **Título del producto**
-- ✅ **Precio actual**
-- ✅ **Precio original** (si hay descuento)
-- ✅ **Imágenes del producto**
-- ✅ **ASIN** (identificador único)
-- ✅ **Precios históricos** (min/max de scripts de Amazon)
+## 🔧 Sistema de Scraping y Actualización
 
-### ⚠️ Limitaciones:
+### Scraping de Amazon
+
+La aplicación utiliza **scraping directo** de Amazon US para obtener datos de productos:
+
+**Características:**
+- ✅ **100% Gratuito** - Sin APIs de pago
+- ✅ **Datos en tiempo real** - Precios actuales de Amazon
+- ✅ **Extracción inteligente** - Múltiples métodos de parsing
+- ✅ **Soporte URLs cortas** - Compatible con `a.co` y `amzn.to`
+- ✅ **Historial automático** - Detecta precios min/max históricos
+
+**Datos Extraídos:**
+- Título del producto
+- Precio actual y original (si hay descuento)
+- Imágenes de alta calidad
+- ASIN (identificador único de Amazon)
+- Historial de precios (min/max)
+
+### Edge Functions (Supabase)
+
+**1. add-product** - Agregar productos vía scraping
+- Scraping desde el servidor (evita bloqueos)
+- Fallback cuando el scraping local falla
+- Agrega automáticamente al historial
+
+**2. refresh-prices** - Actualizar precio de un producto
+- Actualiza precio actual
+- Agrega punto al historial
+- Verifica precio objetivo
+
+**3. refresh-all-prices** - Cron job (cada 30 min)
+- Actualiza todos los productos automáticamente
+- Detecta cambios de precio
+- Genera alertas cuando se alcanza precio objetivo
+
+**4. send-price-alert** - Enviar notificaciones
+- Push notifications vía Firebase
+- Notificaciones in-app
+- Historial de alertas enviadas
+
+### ⚠️ Limitaciones del Scraping
 
 - Amazon puede bloquear solicitudes excesivas
 - Algunos productos pueden no tener todos los datos
-- Recomendado: No actualizar más de 10 productos simultáneamente
+- Recomendado: Usar Edge Functions para evitar bloqueos
+- Los cron jobs manejan actualizaciones masivas de forma segura
 
-## 🎨 Personalización
+## �️ Base de Datos (Supabase)
 
-### Cambiar el Color del Tema
+### Tablas Principales
 
-Edita `lib/main.dart`:
+**products** - Productos compartidos
+- `id`, `asin`, `title`, `image_url`
+- `current_price`, `original_price`, `currency`
+- `url`, `created_by`, `last_updated`
 
-```dart
-colorScheme: ColorScheme.fromSeed(
-  seedColor: const Color(0xFFFF9900), // Cambia este color
-  brightness: Brightness.light,
-),
-```
+**user_favorites** - Favoritos de usuarios
+- `user_id`, `product_id`
+- `target_price`, `is_tracking`
+- `collection_id`, `added_at`
 
-## 📱 Compatibilidad
+**favorite_collections** - Colecciones personalizadas
+- `id`, `user_id`, `name`, `description`
+- `icon`, `color`, `created_at`
 
-- ✅ iOS 12.0+
-- ✅ iPhone y iPad
-- ✅ Modo claro y oscuro
-- ✅ Orientación vertical y horizontal
+**price_history** - Historial de precios
+- `id`, `product_id`, `price`, `timestamp`
+
+**price_alerts** - Alertas generadas
+- `user_id`, `product_id`
+- `target_price`, `current_price`
+- `notified`, `created_at`
+
+**fcm_tokens** - Tokens para notificaciones
+- `user_id`, `token`, `platform`
+
+### Realtime Subscriptions
+
+La app se suscribe automáticamente a cambios en:
+- `products` - Nuevos productos o actualizaciones
+- `user_favorites` - Cambios en favoritos del usuario
+- `price_history` - Nuevos puntos de precio
+
+## �📱 Compatibilidad
+
+- ✅ **iOS 12.0+**
+- ✅ **iPhone y iPad**
+- ✅ **Modo claro y oscuro**
+- ✅ **Orientación vertical**
+- ✅ **Notificaciones push**
+
+## � Características Implementadas
+
+- ✅ Explorar productos de otros usuarios
+- ✅ Sistema de favoritos con colecciones
+- ✅ Búsqueda por nombre de producto
+- ✅ Botón de favoritos en explorar y detalle
+- ✅ Gráficos interactivos de precios
+- ✅ Notificaciones push cuando baja el precio
+- ✅ Sincronización en tiempo real (Supabase)
+- ✅ Actualización automática de precios (cron jobs)
+- ✅ Soporte para URLs cortas de Amazon
+- ✅ Historial completo de precios
 
 ## 🔮 Próximas Características
 
-- [ ] Notificaciones push cuando el precio baje
 - [ ] Compartir productos con amigos
-- [ ] Exportar historial de precios
-- [ ] Soporte para múltiples regiones de Amazon
+- [ ] Exportar historial de precios a CSV
+- [ ] Soporte para Amazon México, España, etc.
 - [ ] Widget de iOS para precios rápidos
+- [ ] Comparación de precios entre productos
+- [ ] Estadísticas de ahorro mensual
 
 ## 📄 Licencia
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
+## 👨‍💻 Autor
+
+**Juan Garcia** - [GitHub](https://github.com/JuanGarcia162)
+
 ## 🤝 Contribuciones
 
 Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para sugerencias y mejoras.
+
+---
+
+**⭐ Si te gusta este proyecto, dale una estrella en GitHub!**
